@@ -1,11 +1,12 @@
 import 'package:bloc/bloc.dart';
+import 'package:bloc_apps/blocs/bloc_export.dart';
 import 'package:bloc_apps/models/task.dart';
 import 'package:equatable/equatable.dart';
 
 part 'tasks_event.dart';
 part 'tasks_state.dart';
 
-class TasksBloc extends Bloc<TasksEvent, TasksState> {
+class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
   TasksBloc() : super(const TasksState()) {
     on<AddTask>(
       //write logic here for adding tasks
@@ -46,5 +47,19 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   void _ondeleteTask(DeleteTask event, Emitter<TasksState> emit) {
     final state = this.state;
     emit(TasksState(allTasks: List.from(state.allTasks)..remove(event.task)));
+  }
+
+  @override
+  TasksState? fromJson(Map<String, dynamic> json) {
+    // TODO: implement fromJson
+    // throw UnimplementedError();
+    return TasksState.fromMap(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(TasksState state) {
+    // TODO: implement toJson
+    // throw UnimplementedError();
+    return state.toMap();
   }
 }
