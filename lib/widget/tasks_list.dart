@@ -1,5 +1,6 @@
 import 'package:bloc_apps/models/task.dart';
 import 'package:flutter/material.dart';
+import '../blocs/bloc_export.dart';
 
 class TaskList extends StatefulWidget {
   const TaskList({super.key, required this.taskslist});
@@ -20,7 +21,14 @@ class _TaskListState extends State<TaskList> {
           var task = widget.taskslist[index];
           return ListTile(
             title: Text(task.title),
-            trailing: Checkbox(value: task.isDone, onChanged: (value) {}),
+            trailing: Checkbox(
+              value: task.isDone,
+              onChanged: (value) {
+                context..read<TasksBloc>().add(UpdateTask(task: task));
+              },
+            ),
+            onLongPress: () =>
+                context.read<TasksBloc>()..add(DeleteTask(task: task)),
           );
         },
       ),
