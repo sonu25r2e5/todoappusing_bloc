@@ -38,7 +38,9 @@ class TasksScreen extends StatelessWidget {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(child: Chip(label: Text('Tasks:'))),
+              Center(
+                child: Chip(label: Text('${state.allTasks.length}\tTasks')),
+              ),
               TaskList(taskslist: tasksList),
             ],
           ),
