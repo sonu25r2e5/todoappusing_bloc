@@ -14,13 +14,13 @@ class Tasktitle extends StatelessWidget {
       title: Text(
         task.title,
         style: TextStyle(
-          decoration: task.isDone! ? TextDecoration.lineThrough : null,
+          decoration: task.isDone ? TextDecoration.lineThrough : null,
         ),
       ),
       trailing: Checkbox(
         value: task.isDone,
         onChanged: (value) {
-          context..read<TasksBloc>().add(UpdateTask(task: task));
+          context.read<TasksBloc>().add(UpdateTask(task: task));
         },
       ),
       onLongPress: () => context.read<TasksBloc>()..add(DeleteTask(task: task)),

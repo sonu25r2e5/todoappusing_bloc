@@ -1,5 +1,6 @@
 import 'package:bloc_apps/blocs/bloc_export.dart';
 import 'package:bloc_apps/models/task.dart';
+import 'package:bloc_apps/screens/mydrawer.dart';
 import 'package:bloc_apps/widget/addTask.dart';
 import 'package:bloc_apps/widget/tasks_list.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class TasksScreen extends StatelessWidget {
               IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
             ],
           ),
+          drawer: MyDrawer(),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

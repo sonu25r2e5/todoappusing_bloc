@@ -1,7 +1,6 @@
 import 'package:bloc_apps/models/task.dart';
 import 'package:bloc_apps/widget/tasktitle.dart';
 import 'package:flutter/material.dart';
-import '../blocs/bloc_export.dart';
 
 class TaskList extends StatefulWidget {
   const TaskList({super.key, required this.taskslist});

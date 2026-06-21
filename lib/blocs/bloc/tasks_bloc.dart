@@ -28,18 +28,16 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
   }
 
   void _onUpadateTask(UpdateTask event, Emitter<TasksState> emit) {
-    //update task
     final state = this.state;
     final task = event.task;
-    //keeping the checkbox at same position so we need index for that.
     final int index = state.allTasks.indexOf(task);
 
-    List<Task> allTasks = List.from(state.allTasks)..remove(task);
-    task.isDone == false
-        ? allTasks.insert(index, task.copyWith(isDone: true))
-        : allTasks.insert(index, task.copyWith(isDone: false));
+    if (index < 0) return;
 
-    // emit the the task
+    final List<Task> allTasks = List.from(state.allTasks)
+      ..removeAt(index)
+      ..insert(index, task.copyWith(isDone: !task.isDone));
+
     emit(TasksState(allTasks: allTasks));
   }
 
@@ -51,7 +49,6 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
 
   @override
   TasksState? fromJson(Map<String, dynamic> json) {
-    // TODO: implement fromJson
     // throw UnimplementedError();
     return TasksState.fromMap(json);
   }

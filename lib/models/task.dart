@@ -3,18 +3,15 @@
 // we use equatable and flutter bloc
 import 'package:equatable/equatable.dart';
 
-// ignore: must_be_immutable
 class Task extends Equatable {
   final String title;
-  bool? isDone;
-  bool? isDeleted;
+  final bool isDone;
+  final bool isDeleted;
 
-  Task({required this.title, this.isDone, this.isDeleted}) {
-    isDone = isDone ?? false;
-    isDeleted = isDeleted ?? false;
-  }
+  Task({required this.title, bool? isDone, bool? isDeleted})
+      : isDone = isDone ?? false,
+        isDeleted = isDeleted ?? false;
 
-  // to copywith by by ctrl + dot.
   Task copyWith({String? title, bool? isDone, bool? isDeleted}) {
     return Task(
       title: title ?? this.title,
@@ -40,10 +37,10 @@ class Task extends Equatable {
   }
 
   @override
-  // insert here all class properities that are listed downl below nicely and clearly
   List<Object?> get props => [
-    // list the properties here
-    title, isDeleted, isDone,
+    title,
+    isDeleted,
+    isDone,
   ];
 
   // we don't use this one so no need to use dart:convert anymore
