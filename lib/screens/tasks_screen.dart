@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 class TasksScreen extends StatelessWidget {
   const TasksScreen({super.key});
 
+  static const id = 'tasks_screen';
+
   void _addTask(BuildContext context) {
     showModalBottomSheet(
       context: context,

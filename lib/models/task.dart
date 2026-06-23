@@ -8,9 +8,9 @@ class Task extends Equatable {
   final bool isDone;
   final bool isDeleted;
 
-  Task({required this.title, bool? isDone, bool? isDeleted})
-      : isDone = isDone ?? false,
-        isDeleted = isDeleted ?? false;
+  const Task({required this.title, bool? isDone, bool? isDeleted})
+    : isDone = isDone ?? false,
+      isDeleted = isDeleted ?? false;
 
   Task copyWith({String? title, bool? isDone, bool? isDeleted}) {
     return Task(
@@ -37,11 +37,7 @@ class Task extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-    title,
-    isDeleted,
-    isDone,
-  ];
+  List<Object?> get props => [title, isDeleted, isDone];
 
   // we don't use this one so no need to use dart:convert anymore
   // String toJson() => json.encode(toMap());

@@ -1,4 +1,5 @@
 import 'package:bloc_apps/blocs/bloc_export.dart';
+import 'package:bloc_apps/services/app_router.dart';
 // import 'package:bloc_apps/models/task.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -25,11 +26,12 @@ void main() async {
   );
 
   HydratedBloc.storage = storage;
-  runApp(const MyApp());
+  runApp(MyApp(appRouter: AppRouter()));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.appRouter});
+  final AppRouter appRouter;
 
   // This widget is the root of your application.
   @override
@@ -40,6 +42,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Tasks App',
         theme: ThemeData(primarySwatch: Colors.blue),
         home: TasksScreen(),
+        onGenerateRoute: appRouter.onGenereateRoute,
       ),
     );
   }
