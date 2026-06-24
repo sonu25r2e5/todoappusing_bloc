@@ -5,30 +5,32 @@ part of 'tasks_bloc.dart';
 class TasksState extends Equatable {
   // create a tasklist here . understand that.
   final List<Task> allTasks;
+  final List<Task> removedTasks;
 
-  const TasksState({this.allTasks = const <Task>[]});
+  const TasksState({
+    this.allTasks = const <Task>[],
+    this.removedTasks = const <Task>[],
+  });
 
   @override
   List<Object> get props => [
     // insert the list here
-    allTasks,
+    allTasks, removedTasks,
   ];
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'allTasks': allTasks.map((x) => x.toMap()).toList(),
+      'removedTasks': removedTasks.map((x) => x.toMap()).toList(),
     };
   }
 
   factory TasksState.fromMap(Map<String, dynamic> map) {
     return TasksState(
-      allTasks: map['allTasks'] != null
-          ? List<Task>.from(
-              (map['allTasks'] as List<dynamic>).map<Task>(
-                (x) => Task.fromMap(x as Map<String, dynamic>),
-              ),
-            )
-          : <Task>[],
+      allTasks: List<Task>.from(map['allTasks']?.map((x) => Task.fromMap(x))),
+      removedTasks: List<Task>.from(
+        map['removedTasks']?.map((x) => Task.fromMap(x)),
+      ),
     );
   }
 }

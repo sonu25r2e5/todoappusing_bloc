@@ -1,4 +1,3 @@
-import 'package:bloc_apps/blocs/bloc/tasks_bloc.dart';
 import 'package:bloc_apps/blocs/bloc_export.dart';
 import 'package:bloc_apps/screens/recycle_bin.dart';
 import 'package:bloc_apps/screens/tasks_screen.dart';
@@ -35,13 +34,17 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             Divider(),
-            GestureDetector(
-              onTap: () => Navigator.of(context).pushNamed(RecycleBin.id),
-              child: ListTile(
-                leading: Icon(Icons.delete),
-                title: Text('My Bin'),
-                trailing: Text('0'),
-              ),
+            BlocBuilder<TasksBloc, TasksState>(
+              builder: (context, state) {
+                return GestureDetector(
+                  onTap: () => Navigator.of(context).pushNamed(RecycleBin.id),
+                  child: ListTile(
+                    leading: Icon(Icons.delete),
+                    title: Text('My Bin'),
+                    trailing: Text('${state.removedTasks.length}'),
+                  ),
+                );
+              },
             ),
             Divider(),
           ],

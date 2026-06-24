@@ -34,9 +34,9 @@ class TasksScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text('Tasks App'),
-            actions: [
-              IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
-            ],
+            // actions: [
+            //   IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+            // ],
           ),
           drawer: MyDrawer(),
           body: Column(

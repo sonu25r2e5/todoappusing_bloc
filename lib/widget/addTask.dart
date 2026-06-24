@@ -22,6 +22,7 @@ class AddTaskScreen extends StatelessWidget {
             SizedBox(height: 10),
             TextField(
               autocorrect: true,
+              textInputAction: TextInputAction.done,
               controller: titleController,
               decoration: InputDecoration(
                 label: Text('enter your text title'),
@@ -35,6 +36,7 @@ class AddTaskScreen extends StatelessWidget {
                   onPressed: () {
                     var task = Task(title: titleController.text);
                     context.read<TasksBloc>().add(AddTask(task: task));
+
                     Navigator.pop(context);
                   },
                   child: Text('Add'),
