@@ -7,31 +7,61 @@ class Tasktitle extends StatelessWidget {
 
   final Task task;
 
-  void _removeOrDeleteTask(BuildContext ctx, Task task) {
-    task.isDeleted
-        ? ctx.read<TasksBloc>().add(DeleteTask(task: task))
-        : ctx.read<TasksBloc>().add(RemoveTask(task: task));
-  }
+  // void _removeOrDeleteTask(BuildContext ctx, Task task) {
+  //   task.isDeleted
+  //       ? ctx.read<TasksBloc>().add(DeleteTask(task: task))
+  //       : ctx.read<TasksBloc>().add(RemoveTask(task: task));
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        task.title,
-        style: TextStyle(
-          decoration: task.isDone ? TextDecoration.lineThrough : null,
-        ),
+    return Card(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  task.title,
+                  style: TextStyle(
+                    decoration: task.isDone ? TextDecoration.lineThrough : null,
+                  ),
+                ),
+                Checkbox(
+                  value: task.isDone,
+                  //     //apply condition here for updating and task
+                  onChanged: task.isDone == false
+                      ? (value) {
+                          context.read<TasksBloc>().add(UpdateTask(task: task));
+                        }
+                      : null,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
-      trailing: Checkbox(
-        value: task.isDone,
-        //apply condition here for updating and task
-        onChanged: task.isDone == false
-            ? (value) {
-                context.read<TasksBloc>().add(UpdateTask(task: task));
-              }
-            : null,
-      ),
-      onLongPress: () => _removeOrDeleteTask(context, task),
     );
+    // ListTile(
+    //   title: Text(
+    //     task.title,
+    //     style: TextStyle(
+    //       decoration: task.isDone ? TextDecoration.lineThrough : null,
+    //     ),
+    //   ),
+    //   trailing: Checkbox(
+    //     value: task.isDone,
+    //     //apply condition here for updating and task
+    //     onChanged: task.isDone == false
+    //         ? (value) {
+    //             context.read<TasksBloc>().add(UpdateTask(task: task));
+    //           }
+    //         : null,
+    //   ),
+    //   // onLongPress: () => _removeOrDeleteTask(context, task),
+    // );
   }
 }

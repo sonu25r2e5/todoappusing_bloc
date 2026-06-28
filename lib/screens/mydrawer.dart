@@ -1,11 +1,11 @@
 import 'package:bloc_apps/blocs/bloc_export.dart';
+import 'package:bloc_apps/blocs/switch_bloc/switch_state.dart';
 import 'package:bloc_apps/screens/recycle_bin.dart';
-import 'package:bloc_apps/screens/tasks_screen.dart';
+import 'package:bloc_apps/screens/tabs_screen.dart';
 import 'package:flutter/material.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,11 +24,12 @@ class MyDrawer extends StatelessWidget {
             BlocBuilder<TasksBloc, TasksState>(
               builder: (context, state) {
                 return GestureDetector(
-                  onTap: () => Navigator.of(context).pushNamed(TasksScreen.id),
+                  onTap: () =>
+                      Navigator.of(context).pushReplacementNamed(TabsScreen.id),
                   child: ListTile(
                     leading: const Icon(Icons.folder_special),
                     title: const Text('My text'),
-                    trailing: Text('${state.allTasks.length}'),
+                    trailing: Text('${state.pendingTasks.length}'),
                   ),
                 );
               },
@@ -37,12 +38,32 @@ class MyDrawer extends StatelessWidget {
             BlocBuilder<TasksBloc, TasksState>(
               builder: (context, state) {
                 return GestureDetector(
-                  onTap: () => Navigator.of(context).pushNamed(RecycleBin.id),
+                  onTap: () =>
+                      Navigator.of(context).pushReplacementNamed(RecycleBin.id),
                   child: ListTile(
                     leading: Icon(Icons.delete),
                     title: Text('My Bin'),
                     trailing: Text('${state.removedTasks.length}'),
                   ),
+                );
+              },
+            ),
+            //divider
+            Divider(),
+            Text('Chose your theme \n dark  and white '),
+            // Divider(),
+            // Change the value with state
+            BlocBuilder<SwitchBloc, SwitchState>(
+              builder: (context, state) {
+                return Switch(
+                  value: state.switchValue,
+                  onChanged: (newValue) {
+                    // we update the value by switch balue in swithc update
+
+                    newValue
+                        ? context.read<SwitchBloc>().add(SwitchOnEvent())
+                        : context.read<SwitchBloc>().add(SwitchOffEvent());
+                  },
                 );
               },
             ),

@@ -44,3 +44,7 @@ class RemoveTask extends TasksEvent {
   @override
   List<Object> get props => [task];
 }
+
+class ClearRemovedTasks extends TasksEvent {
+  const ClearRemovedTasks();
+}

@@ -1,5 +1,5 @@
 import 'package:bloc_apps/screens/recycle_bin.dart';
-import 'package:bloc_apps/screens/tasks_screen.dart';
+import 'package:bloc_apps/screens/tabs_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -8,8 +8,8 @@ class AppRouter {
     switch (routeSetting.name) {
       case RecycleBin.id:
         return MaterialPageRoute(builder: (_) => const RecycleBin());
-      case TasksScreen.id:
-        return MaterialPageRoute(builder: (_) => const TasksScreen());
+      case TabsScreen.id:
+        return MaterialPageRoute(builder: (_) => TabsScreen());
       default:
         return null;
     }
