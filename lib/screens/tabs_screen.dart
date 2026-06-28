@@ -1,5 +1,4 @@
 import 'package:bloc_apps/blocs/bloc_export.dart';
-import 'package:bloc_apps/blocs/tasks_bloc/tasks_bloc.dart';
 import 'package:bloc_apps/models/task.dart';
 import 'package:bloc_apps/screens/completed_task_screen.dart';
 import 'package:bloc_apps/screens/favorite_task_screen.dart';
