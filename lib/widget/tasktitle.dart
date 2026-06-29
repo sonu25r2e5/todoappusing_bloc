@@ -1,6 +1,7 @@
 import 'package:bloc_apps/blocs/bloc_export.dart';
 import 'package:bloc_apps/models/task.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Tasktitle extends StatelessWidget {
   const Tasktitle({super.key, required this.task});
@@ -49,7 +50,13 @@ class Tasktitle extends StatelessWidget {
                                       : null,
                                 ),
                               ),
-                              Text(DateTime.now().toString()),
+                              Text(
+                                // other methods to use this
+                                // DateFormat('dd-MM-yyyy h:').format(DateTime.now())
+                                DateFormat().add_yMMMEd().add_Hm().format(
+                                  DateTime.now(),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -67,6 +74,32 @@ class Tasktitle extends StatelessWidget {
                             );
                           }
                         : null,
+                  ),
+                  // Popup menu bottom is listed here.
+                  PopupMenuButton(
+                    itemBuilder: ((context) => [
+                      PopupMenuItem(
+                        child: TextButton.icon(
+                          onPressed: () {},
+                          icon: Icon(Icons.edit),
+                          label: Text('Edit'),
+                        ),
+                      ),
+                      PopupMenuItem(
+                        child: TextButton.icon(
+                          onPressed: () {},
+                          icon: Icon(Icons.bookmark),
+                          label: Text('Added to Bookmarks'),
+                        ),
+                      ),
+                      PopupMenuItem(
+                        child: TextButton.icon(
+                          onPressed: () {},
+                          icon: Icon(Icons.delete),
+                          label: Text('Delete'),
+                        ),
+                      ),
+                    ]),
                   ),
                 ],
               ),
