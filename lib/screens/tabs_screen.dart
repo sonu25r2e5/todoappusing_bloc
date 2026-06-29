@@ -19,7 +19,11 @@ class TabsScreen extends StatefulWidget {
 class _TabsScreenState extends State<TabsScreen> {
   // we have three tabs so listed here.
   final List<Map<String, dynamic>> _pageDetails = [
-    {'pageName': const PendingScreen(), 'title': 'pending Tasks'},
+    {
+      'pageName': const PendingScreen(),
+      'title': 'pending Tasks',
+      'action': Icon(Icons.delete),
+    },
     {'pageName': CompletedTaskScreen(), 'title': 'Completed Tasks'},
     {'pageName': const FavoriteTaskScreen(), 'title': 'Favorite tasks'},
   ];
@@ -28,6 +32,8 @@ class _TabsScreenState extends State<TabsScreen> {
 
   void _addTask(BuildContext context) {
     showModalBottomSheet(
+      // for showing the bottom we use isScrollCOntrolled
+      isScrollControlled: true,
       context: context,
       builder: (context) {
         return SingleChildScrollView(child: AddTaskScreen());
@@ -64,11 +70,14 @@ class _TabsScreenState extends State<TabsScreen> {
           ),
           drawer: MyDrawer(),
           body: _pageDetails[_selectedPageIndex]['pageName'],
-          floatingActionButton: FloatingActionButton(
-            onPressed: () => _addTask(context),
-            tooltip: 'Add Task',
-            child: Icon(Icons.add),
-          ),
+          // write the condintion
+          floatingActionButton: _selectedPageIndex == 0
+              ? FloatingActionButton(
+                  onPressed: () => _addTask(context),
+                  tooltip: 'Add Task',
+                  child: Icon(Icons.add),
+                )
+              : null,
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: _selectedPageIndex,
             onTap: (index) {
@@ -78,7 +87,7 @@ class _TabsScreenState extends State<TabsScreen> {
             },
             items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.list),
+                icon: Icon(Icons.incomplete_circle_sharp),
                 label: 'Pending tasks',
               ),
               BottomNavigationBarItem(
