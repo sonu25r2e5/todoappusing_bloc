@@ -1,0 +1,69 @@
+import 'package:bloc_apps/models/task.dart';
+import 'package:flutter/material.dart';
+
+class PopupMenu extends StatelessWidget {
+  const PopupMenu({
+    super.key,
+    required this.task,
+    required this.cancelOrDeleteCallBack,
+  });
+  // we create voidcall back or frunction for delete purpose
+
+  final Task task;
+  // we need voidCallback for function usnderstand that.
+  final VoidCallback cancelOrDeleteCallBack;
+  // now we need a task construtor file here
+  // now for restore value
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton(
+      // we use a ternary operator in this place.
+      itemBuilder: task.isDeleted == false
+          ? ((context) => [
+              PopupMenuItem(
+                child: TextButton.icon(
+                  onPressed: null,
+                  icon: Icon(Icons.edit),
+                  label: Text('Edit'),
+                ),
+                onTap: () {},
+              ),
+              PopupMenuItem(
+                child: TextButton.icon(
+                  onPressed: null,
+                  icon: Icon(Icons.bookmark),
+                  label: Text('Added to Bookmarks'),
+                ),
+                onTap: () {},
+              ),
+              PopupMenuItem(
+                onTap: cancelOrDeleteCallBack,
+                child: TextButton.icon(
+                  onPressed: null,
+                  icon: Icon(Icons.delete),
+                  label: Text('Delete'),
+                ),
+              ),
+            ])
+          : (context) => [
+              PopupMenuItem(
+                onTap: cancelOrDeleteCallBack,
+                child: TextButton.icon(
+                  onPressed: null,
+                  icon: Icon(Icons.restore_from_trash_rounded),
+                  label: Text('Restore'),
+                ),
+              ),
+              PopupMenuItem(
+                onTap: cancelOrDeleteCallBack,
+                child: TextButton.icon(
+                  onPressed: null,
+                  icon: Icon(Icons.delete_forever),
+                  label: Text('Delete Forever'),
+                ),
+              ),
+            ],
+    );
+  }
+}
