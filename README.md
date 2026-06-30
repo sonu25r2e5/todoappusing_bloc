@@ -16,9 +16,9 @@ The ui/ux of the picture for following screen is indicated below
     <td><img src="ui/1.png" width="200"/></td>
     <td><img src="ui/2.png" width="200"/></td>
     <td><img src="ui/3.png" width="200"/></td>
-    <td><img src="ui/6.png" width="200"/></td>
   </tr>
   <tr>
+    <td><img src="ui/6.png" width="200"/></td>
     <td><img src="ui/4.png" width="200"/></td>
     <td><img src="ui/5.png" width="200"/></td>
     <td><img src="ui/5.png" width="200"/></td>
