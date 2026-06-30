@@ -4,7 +4,7 @@ import 'package:bloc_apps/screens/completed_task_screen.dart';
 import 'package:bloc_apps/screens/favorite_task_screen.dart';
 import 'package:bloc_apps/screens/mydrawer.dart';
 import 'package:bloc_apps/screens/pending_screen.dart';
-import 'package:bloc_apps/widget/addTask.dart';
+import 'package:bloc_apps/screens/addTask_screen.dart';
 import 'package:flutter/material.dart';
 
 class TabsScreen extends StatefulWidget {

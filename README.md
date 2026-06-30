@@ -1,3 +1,5 @@
 # bloc_apps
 
-A new Flutter project.
+This app let's you to keep the tracks of your day to day task that are envolved in the activties. 
+
+
