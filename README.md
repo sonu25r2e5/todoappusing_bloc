@@ -32,5 +32,6 @@ The ui/ux of the picture for following screen is indicated below
 :star: 
 :star:
 :download:
+:arrow_down:
 </h3>
 [![download button](ui/download.png)](https://github.com/sonu25r2e5/todoappusing_bloc/releases/download/v1.0.1/app-armeabi-v7a-release.apk)
