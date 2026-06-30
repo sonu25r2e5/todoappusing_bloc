@@ -52,7 +52,7 @@ class _TabsScreenState extends State<TabsScreen> {
     return BlocBuilder<TasksBloc, TasksState>(
       builder: (context, state) {
         List<Task> tasksList = state.pendingTasks;
-        final completedTasks = tasksList.where((task) => task.isDone).toList();
+        final completedTasks = tasksList.where((task) => task.isDone!).toList();
         final hasCompletedTasks = completedTasks.isNotEmpty;
         return Scaffold(
           appBar: AppBar(

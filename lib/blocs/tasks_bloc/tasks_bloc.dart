@@ -20,6 +20,7 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
       _onDeleteTask,
     );
     on<RemoveTask>(_onRemoveTask);
+    on<MarkFavoriteOrUnfavoriteTask>(_onMarkFavoriteOrUnFavoriteTask);
     on<ClearRemovedTasks>(_onClearRemovedTasks);
   }
 
@@ -40,9 +41,9 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
     final state = this.state;
     final task = event.task;
 
-    List<Task> pendingTasks = state.pendingTasks;
-    List<Task> completedTasks = state.completedTasks;
-    List<Task> favoriteTasks = state.favoriteTasks;
+    List<Task> pendingTasks = List.from(state.pendingTasks);
+    List<Task> completedTasks = List.from(state.completedTasks);
+    List<Task> favoriteTasks = List.from(state.favoriteTasks);
     task.isDone == false
         ? {
             // on checking the data goes to complete task
@@ -116,5 +117,55 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
     // TODO: implement toJson
     // throw UnimplementedError();
     return state.toMap();
+  }
+
+  // for favorite itme listed
+  void _onMarkFavoriteOrUnFavoriteTask(
+    MarkFavoriteOrUnfavoriteTask event,
+    Emitter<TasksState> emit,
+  ) {
+    final state = this.state;
+    List<Task> pendingTasks = List.from(state.pendingTasks);
+    List<Task> completedTasks = List.from(state.completedTasks);
+    List<Task> favoriteTasks = List.from(state.favoriteTasks);
+
+    if (event.task.isDone == false) {
+      if (event.task.isFavorite == false) {
+        // listing the pending task in it.
+        var taskIndex = pendingTasks.indexOf(event.task);
+        pendingTasks = List.from(pendingTasks)
+          ..remove(event.task)
+          ..insert(taskIndex, event.task.copyWith(isFavorite: true));
+        favoriteTasks.insert(0, event.task.copyWith(isFavorite: true));
+      } else {
+        var taskIndex = pendingTasks.indexOf(event.task);
+        pendingTasks = List.from(pendingTasks)
+          ..remove(event.task)
+          ..insert(taskIndex, event.task.copyWith(isFavorite: false));
+        favoriteTasks.remove(event.task);
+      }
+    } else {
+      if (event.task.isFavorite == false) {
+        var taskIndex = completedTasks.indexOf(event.task);
+        completedTasks = List.from(completedTasks)
+          ..remove(event.task)
+          ..insert(taskIndex, event.task.copyWith(isFavorite: true));
+        favoriteTasks.insert(0, event.task.copyWith(isFavorite: true));
+      } else {
+        var taskEvent = completedTasks.indexOf(event.task);
+        completedTasks = List.from(completedTasks)
+          ..remove(event.task)
+          ..insert(taskEvent, event.task.copyWith(isFavorite: false));
+        favoriteTasks.remove(event.task);
+      }
+    }
+    emit(
+      TasksState(
+        pendingTasks: pendingTasks,
+        completedTasks: completedTasks,
+        favoriteTasks: favoriteTasks,
+        removedTasks: state.removedTasks,
+      ),
+    );
   }
 }

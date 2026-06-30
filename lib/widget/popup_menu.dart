@@ -2,11 +2,6 @@ import 'package:bloc_apps/models/task.dart';
 import 'package:flutter/material.dart';
 
 class PopupMenu extends StatelessWidget {
-  const PopupMenu({
-    super.key,
-    required this.task,
-    required this.cancelOrDeleteCallBack,
-  });
   // we create voidcall back or frunction for delete purpose
 
   final Task task;
@@ -14,7 +9,14 @@ class PopupMenu extends StatelessWidget {
   final VoidCallback cancelOrDeleteCallBack;
   // now we need a task construtor file here
   // now for restore value
+  final VoidCallback likeorDislike;
 
+  const PopupMenu({
+    super.key,
+    required this.task,
+    required this.cancelOrDeleteCallBack,
+    required this.likeorDislike,
+  });
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
@@ -30,12 +32,17 @@ class PopupMenu extends StatelessWidget {
                 onTap: () {},
               ),
               PopupMenuItem(
+                onTap: likeorDislike,
                 child: TextButton.icon(
                   onPressed: null,
-                  icon: Icon(Icons.bookmark),
-                  label: Text('Added to Bookmarks'),
+                  icon: task.isFavorite == false
+                      ? Icon(Icons.bookmark_add_outlined)
+                      : Icon(Icons.bookmark_remove_outlined),
+                  // add condition here for adding and rejecting the bookmarks
+                  label: task.isFavorite == false
+                      ? Text('Added to Bookmarks')
+                      : Text('Remove Bookmarks'),
                 ),
-                onTap: () {},
               ),
               PopupMenuItem(
                 onTap: cancelOrDeleteCallBack,

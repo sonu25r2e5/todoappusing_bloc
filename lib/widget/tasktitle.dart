@@ -10,7 +10,7 @@ class Tasktitle extends StatelessWidget {
   final Task task;
 
   void _removeOrDeleteTask(BuildContext ctx, Task task) {
-    task.isDeleted
+    task.isDeleted!
         ? ctx.read<TasksBloc>().add(DeleteTask(task: task))
         : ctx.read<TasksBloc>().add(RemoveTask(task: task));
   }
@@ -33,7 +33,10 @@ class Tasktitle extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     // crossAxisAlignment: CrossAxisAlignment.,
                     children: [
-                      Icon(Icons.star_outline),
+                      // use ternary opperation to change the icons
+                      task.isFavorite == false
+                          ? Icon(Icons.star_outline)
+                          : Icon(Icons.star),
                       SizedBox(width: 10),
                       Expanded(
                         child: Column(
@@ -43,7 +46,7 @@ class Tasktitle extends StatelessWidget {
                               task.title,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                decoration: task.isDone
+                                decoration: task.isDone!
                                     ? TextDecoration.lineThrough
                                     : null,
                               ),
@@ -51,8 +54,8 @@ class Tasktitle extends StatelessWidget {
                             Text(
                               // other methods to use this
                               // DateFormat('dd-MM-yyyy h:').format(DateTime.now())
-                              DateFormat().add_yMMMEd().add_Hm().format(
-                                DateTime.now(),
+                              DateFormat.yMMMEd('en_US').add_Hm().format(
+                                DateTime.tryParse(task.date) ?? DateTime.now(),
                               ),
                             ),
                           ],
@@ -74,6 +77,9 @@ class Tasktitle extends StatelessWidget {
                 // Popup menu bottom is listed here.
                 PopupMenu(
                   task: task,
+                  likeorDislike: () => context.read<TasksBloc>().add(
+                    MarkFavoriteOrUnfavoriteTask(task: task),
+                  ),
                   cancelOrDeleteCallBack: () =>
                       _removeOrDeleteTask(context, task),
                 ),

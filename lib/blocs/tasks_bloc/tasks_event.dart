@@ -48,3 +48,8 @@ class RemoveTask extends TasksEvent {
 class ClearRemovedTasks extends TasksEvent {
   const ClearRemovedTasks();
 }
+
+class MarkFavoriteOrUnfavoriteTask extends TasksEvent {
+  final Task task;
+  const MarkFavoriteOrUnfavoriteTask({required this.task});
+}
